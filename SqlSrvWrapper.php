@@ -32,7 +32,7 @@ class SqlSrvWrapper {
 	private function bind_errors()
 	{
 		//Fill $error with contents of sqlsrv_errors
-		$error_arrar = sqlsrv_errors();
+		$error_array = sqlsrv_errors();
 		$this->error = "";
 		$indx = 1;
 		foreach ($error_array as $e)
@@ -84,13 +84,14 @@ class SqlSrvWrapper {
 			$this->bind_errors();
 			return false;
 		}
+		if (!$ret) return true;
 		$result_array = array();
 		//this converts our result array into a more user friendly array
 		while ($row = sqlsrv_fetch_array($result,SQLSRV_FETCH_ASSOC))
 		{
 			array_push($result_array,$row);
 		}
-		if ($ret) return $result_array;
+		return $result_array;
 	}
 	public function connect()
 	{
